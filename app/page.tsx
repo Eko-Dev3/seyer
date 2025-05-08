@@ -4,10 +4,6 @@ import { useState, useEffect } from "react";
 import { title, subtitle } from "@/components/primitives";
 
 
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
-
-
 const images = [
   "/polaroid1.jpg",
   "/polaroid2.jpg",
@@ -209,18 +205,41 @@ export default function Home() {
     </div>
 
     {photoIndex !== null && (
-      <Lightbox
-        mainSrc={images[photoIndex]}
-        nextSrc={images[(photoIndex + 1) % images.length]}
-        prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-        onCloseRequest={() => setPhotoIndex(null)}
-        onMovePrevRequest={() =>
-          setPhotoIndex((photoIndex + images.length - 1) % images.length)
-        }
-        onMoveNextRequest={() =>
-          setPhotoIndex((photoIndex + 1) % images.length)
-        }
-      />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+        <div className="relative max-w-3xl w-full px-4">
+          <button
+            onClick={() => setPhotoIndex(null)}
+            className="absolute top-2 right-2 text-white text-2xl"
+          >
+            &times;
+          </button>
+          <img
+            src={images[photoIndex]}
+            alt={`Foto ${photoIndex + 1}`}
+            className="w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+          />
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={() =>
+                setPhotoIndex(
+                  (photoIndex + images.length - 1) % images.length
+                )
+              }
+              className="px-4 py-2 text-white bg-indigo-600 rounded-full"
+            >
+              ⬅️ Anterior
+            </button>
+            <button
+              onClick={() =>
+                setPhotoIndex((photoIndex + 1) % images.length)
+              }
+              className="px-4 py-2 text-white bg-indigo-600 rounded-full"
+            >
+              Siguiente ➡️
+            </button>
+          </div>
+        </div>
+      </div>
     )}
 
     <div className={subtitle({ class: "mt-6" })}>
@@ -235,6 +254,7 @@ export default function Home() {
     </button>
   </>
 )}
+
 
 
 {step === 5 && (
