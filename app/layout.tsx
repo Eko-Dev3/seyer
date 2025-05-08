@@ -56,9 +56,9 @@ export default function RootLayout({
                 href=""
                 title="PAU"
               >
-                <span className="text-default-600">Con mucho cariño,
-                Jordan</span>
-               
+                <span className="text-default-600">
+                  Con mucho cariño, Jordan
+                </span>
               </Link>
             </footer>
           </div>
